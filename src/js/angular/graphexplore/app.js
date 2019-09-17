@@ -25,6 +25,7 @@ define([
         'angular/graphexplore/controllers/dependencies-chord.controller',
         'angular/graphexplore/controllers/graphs-visualizations.controller',
         'angular/graphexplore/controllers/graphs-config.controller',
+        'angular/graphexplore/controllers/graph-paths.controller',
         'angular/graphexplore/directives/rdf-class-hierarchy.directive',
         'angular/graphexplore/directives/domain-range-graph.directive',
         'angular/graphexplore/directives/system-repo-warning.directive',
@@ -79,6 +80,12 @@ define([
                     helpInfo: 'Provides a way to create a visual representation of parts of the data graph. You start from a single resource and the resources connected '
                                 + ' to it or from a graph query result. Click on resources to show their connections too.',
                     reloadOnSearch: false
+                }).when('/graph-paths-visualizations', {
+                    templateUrl: 'pages/graphs-path-visualizations.html',
+                    controller: 'GraphPathVisualizationsCtrl',
+                    title: 'Visual paths',
+                    helpInfo: 'Finds path between two nodes using DFS.',
+                    reloadOnSearch: false
                 }).when('/graphs-visualizations/config/save/:configName?', {
                     templateUrl: 'pages/graph-config/saveGraphConfig.html',
                     title: 'Create visual graph config',
@@ -109,6 +116,7 @@ define([
                 parent: 'Explore'
             });
 
+
             $menuItemsProvider.addItem({
                 label: 'Visual graph',
                 href: 'graphs-visualizations',
@@ -118,6 +126,13 @@ define([
                     href: 'graphs-visualizations/config/save',
                     children: []
                 }]
+            });
+
+            $menuItemsProvider.addItem({
+                label: 'Paths',
+                href: 'graph-paths-visualizations',
+                order: 6,
+                parent: 'Explore',
             });
         }
     });
