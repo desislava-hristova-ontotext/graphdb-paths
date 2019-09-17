@@ -1,14 +1,14 @@
 import "angular/security/services";
 
-beforeEach(angular.mock.module('graphdb.framework.security.services', function($provider) {
-    $provider.constant("productInfo", {
+beforeEach(angular.mock.module('graphdb.framework.security.services', function($provide) {
+    $provide.constant("productInfo", {
         "productType": "standard", "productVersion": "7.0", "sesame": "2.9.0", "connectors": "5.0.0"
     });
 }));
 
 describe('$jwtAuth tests', function () {
 
-    var $jwtAuth, $httpBackend, $rootScope, $location;
+    var $jwtAuth, $httpBackend, $rootScope, $location, httpSecurity, httpGetAdmin;
 
     beforeEach(angular.mock.inject(function (_$jwtAuth_, _$httpBackend_, _$rootScope_, _$location_) {
         // The injector unwraps the underscores (_) from around the parameter names when matching
@@ -17,12 +17,12 @@ describe('$jwtAuth tests', function () {
         $rootScope = _$rootScope_;
         $location = _$location_;
 
-        let httpSecurity = $httpBackend.when('GET', 'rest/security/all').respond(200, {
+        httpSecurity = $httpBackend.when('GET', 'rest/security/all').respond(200, {
             enabled: true,
             freeAccess: {enabled: false},
             overrideAuth: {enabled: false}
         });
-        let httpGetAdmin = $httpBackend.when('GET', 'rest/security/user/admin').respond(200, {
+        httpGetAdmin = $httpBackend.when('GET', 'rest/security/user/admin').respond(200, {
             username: 'admin',
             appSettings: {},
             grantedAuthorities: []

@@ -6,17 +6,19 @@ import "angular/clustermanagement/directives";
 
 describe('==> Repository module controllers tests', function () {
 
-    beforeEach(angular.mock.module('graphdb.framework.clustermanagement.controllers', ($provider) => {
-        $provider.constant("productInfo", {
+    beforeEach(angular.mock.module('graphdb.framework.clustermanagement.controllers', function ($provide) {
+        $provide.constant("productInfo", {
             "productType": "standard", "productVersion": "7.0", "sesame": "2.9.0", "connectors": "5.0.0"
         });
     }));
 
     describe('=> ClusterManagementCtrl tests', function () {
-        let $httpBackend;
-        let $location,
+        var $httpBackend,
+            $location,
             $controller,
             $timeout,
+            $scope,
+            $window,
             httpGetCluster,
             httpGetMaster;
 
@@ -27,7 +29,7 @@ describe('==> Repository module controllers tests', function () {
             $window = _$window_;
             $timeout = _$timeout_;
 
-            let $scope = $rootScope.$new();
+            $scope = $rootScope.$new();
             $scope.height = function () {
                 return 600;
             };

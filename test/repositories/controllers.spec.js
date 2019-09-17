@@ -15,12 +15,16 @@ describe('==> Repository module controllers tests', function () {
             $window,
             $controller,
             $timeout,
+            $scope,
             httpGetLocation,
             httpGetActiveLocation,
             httpGetRepositories,
             modalInstance,
             modalServiceMock,
-            jwtAuthMock;
+            jwtAuthMock,
+            httpSecurity,
+            httpDefaultUser;
+
         beforeEach(angular.mock.inject(function (_$repositories_, _$httpBackend_, _$location_, _$controller_, _$window_, _$timeout_, $rootScope, $q) {
             $repositories = _$repositories_;
             $httpBackend = _$httpBackend_;
@@ -59,7 +63,7 @@ describe('==> Repository module controllers tests', function () {
 
             jwtAuthMock = {};
 
-            var $scope = $rootScope.$new();
+            $scope = $rootScope.$new();
             var controller = $controller('LocationsAndRepositoriesCtrl', {
                 $scope: $scope,
                 $modal: modalInstance,
@@ -71,12 +75,12 @@ describe('==> Repository module controllers tests', function () {
             httpGetLocation = $httpBackend.when('GET', 'rest/locations').respond(200, {});
             httpGetActiveLocation = $httpBackend.when('GET', 'rest/locations/active').respond(200, {});
             httpGetRepositories = $httpBackend.when('GET', 'rest/repositories').respond(200, {});
-            var httpSecurity = $httpBackend.when('GET', 'rest/security/all').respond(200, {
+            httpSecurity = $httpBackend.when('GET', 'rest/security/all').respond(200, {
                 enabled: false,
                 overrideAuth: {enabled: false},
                 freeAccess: {enabled: false}
             });
-            var httpDefaultUser = $httpBackend.when('GET', 'rest/security/user/admin').respond(200, {
+            httpDefaultUser = $httpBackend.when('GET', 'rest/security/user/admin').respond(200, {
                 username: 'admin',
                 appSettings: {'DEFAULT_INFERENCE': true, 'DEFAULT_SAMEAS': true, 'EXECUTE_COUNT': true},
                 authorities: ['ROLE_ADMIN']
@@ -269,10 +273,13 @@ describe('==> Repository module controllers tests', function () {
             var $repositories,
                 $httpBackend,
                 $controller,
+                $scope,
                 locationMock,
                 routeParamsMock,
                 isEnterprise,
-                isFreeEdition;
+                isFreeEdition,
+                httpDefaultUser,
+                httpSecurity;
 
             beforeEach(angular.mock.inject(function (_$repositories_, _$httpBackend_, _$controller_, $rootScope) {
                 $repositories = _$repositories_;
@@ -341,9 +348,12 @@ describe('==> Repository module controllers tests', function () {
         describe('isEnterprise == false', function () {
             var $httpBackend,
                 $controller,
+                $scope,
                 routeParamsMock,
                 isEnterprise,
-                isFreeEdition;
+                isFreeEdition,
+                httpDefaultUser,
+                httpSecurity;
 
             beforeEach(angular.mock.inject(function (_$httpBackend_, _$controller_, $rootScope) {
                 $httpBackend = _$httpBackend_;
@@ -391,9 +401,11 @@ describe('==> Repository module controllers tests', function () {
         var repositoriesMock,
             $httpBackend,
             $controller,
+            $scope,
             locationMock,
             isEnterprise,
             routeParamsMock,
+            isFreeEdition,
             init = false;
 
         beforeEach(angular.mock.inject(function (_$httpBackend_, _$controller_, $rootScope) {

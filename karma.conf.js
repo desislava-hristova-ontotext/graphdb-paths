@@ -2,6 +2,7 @@
 // Generated on Thu Jul 18 2019 18:49:29 GMT+0300 (EEST)
 
 const DEV_CONFIG = require('./webpack.config.dev');
+const merge = require('webpack-merge');
 
 module.exports = function(config) {
   config.set({
@@ -35,7 +36,7 @@ module.exports = function(config) {
 
 
     // Reuse the DEV configuration
-    webpack: Object.assign(DEV_CONFIG, {
+    webpack: merge(DEV_CONFIG, {
         devtool: 'inline-source-map'
     }),
 

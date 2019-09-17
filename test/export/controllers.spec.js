@@ -8,7 +8,8 @@ describe('==> ExportCtrl tests', function () {
         $controller,
         $httpBackend,
         $scope,
-        modalInstance;
+        modalInstance,
+        controller;
 
     beforeEach(angular.mock.inject(function (_$jwtAuth_, _$controller_, _$httpBackend_, $rootScope, $q, $injector) {
         // The injector unwraps the underscores (_) from around the parameter names when matching
@@ -45,7 +46,7 @@ describe('==> ExportCtrl tests', function () {
 
         //new a $scope
         $scope = $rootScope.$new();
-        let controller = $controller('ExportCtrl', {
+        controller = $controller('ExportCtrl', {
             $scope: $scope,
             // $modal: modalInstance,
             ModalService: modalInstance

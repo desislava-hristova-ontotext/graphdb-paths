@@ -323,7 +323,8 @@ describe('==> Controllers tests', function () {
             $scope,
             $httpBackend,
             $timeout,
-            httpCreateUser;
+            httpCreateUser,
+            windowMock;
 
         beforeEach(angular.mock.inject(function (_$controller_, _$httpBackend_, _$timeout_, $rootScope) {
             $controller = _$controller_;
@@ -468,7 +469,8 @@ describe('==> Controllers tests', function () {
             $timeout,
             httpGetUserData,
             httpEditUser,
-            windowMock;
+            windowMock,
+            jwtMock;
 
         beforeEach(angular.mock.inject(function (_$controller_, _$httpBackend_, _$timeout_, $rootScope) {
             $controller = _$controller_;

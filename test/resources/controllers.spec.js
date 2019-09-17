@@ -2,8 +2,8 @@ import "angular/core/services";
 import "angular/repositories/services";
 import "angular/resources/controllers";
 
-beforeEach(angular.mock.module('graphdb.framework.jmx.resources.controllers', function ($provider) {
-    $provider.constant("productInfo", {
+beforeEach(angular.mock.module('graphdb.framework.jmx.resources.controllers', function ($provide) {
+    $provide.constant("productInfo", {
         "productType": "standard", "productVersion": "7.0", "sesame": "2.9.0", "connectors": "5.0.0"
     });
 }));
@@ -88,9 +88,9 @@ describe('=> ResourcesCtrl tests', function () {
             }
             $httpBackend.expectGET('rest/monitor/resource');
 
-            fixedDate = new Date('1999-01-02');
+            var fixedDate = new Date('1999-01-02');
             jasmine.clock().mockDate(fixedDate);
-            today = new Date();
+            var today = new Date();
 
             expect($scope.firstLoad).toBeTruthy();
 
@@ -116,9 +116,9 @@ describe('=> ResourcesCtrl tests', function () {
             }
             $httpBackend.expectGET('rest/monitor/resource');
 
-            fixedDate = new Date('1999-01-02');
+            var fixedDate = new Date('1999-01-02');
             jasmine.clock().mockDate(fixedDate);
-            today = new Date();
+            var today = new Date();
 
             $interval.flush(2001);
             $httpBackend.flush();
@@ -155,9 +155,9 @@ describe('=> ResourcesCtrl tests', function () {
             }
             $httpBackend.expectGET('rest/monitor/resource');
 
-            fixedDate = new Date('1999-01-02');
+            var fixedDate = new Date('1999-01-02');
             jasmine.clock().mockDate(fixedDate);
-            today = new Date();
+            var today = new Date();
 
             $interval.flush(2001);
             $httpBackend.flush();
@@ -194,9 +194,9 @@ describe('=> ResourcesCtrl tests', function () {
             }
             $httpBackend.expectGET('rest/monitor/resource');
 
-            fixedDate = new Date('1999-01-02');
+            var fixedDate = new Date('1999-01-02');
             jasmine.clock().mockDate(fixedDate);
-            today = new Date();
+            var today = new Date();
 
             $interval.flush(2001);
             $httpBackend.flush();
@@ -233,9 +233,9 @@ describe('=> ResourcesCtrl tests', function () {
             }
             $httpBackend.expectGET('rest/monitor/resource');
 
-            fixedDate = new Date('1999-01-02');
+            var fixedDate = new Date('1999-01-02');
             jasmine.clock().mockDate(fixedDate);
-            today = new Date();
+            var today = new Date();
 
             $interval.flush(2001);
             $httpBackend.flush();

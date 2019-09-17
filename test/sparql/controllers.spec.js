@@ -4,8 +4,8 @@ import "angular/repositories/services";
 import "angular/namespaces/controllers";
 
 
-beforeEach(angular.mock.module('graphdb.framework.namespaces.controllers', function ($provider) {
-    $provider.constant("productInfo", {
+beforeEach(angular.mock.module('graphdb.framework.namespaces.controllers', function ($provide) {
+    $provide.constant("productInfo", {
         "productType": "standard", "productVersion": "7.0", "sesame": "2.9.0", "connectors": "5.0.0"
     });
 }));

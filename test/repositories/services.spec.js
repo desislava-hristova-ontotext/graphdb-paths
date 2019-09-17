@@ -1,7 +1,7 @@
 import "angular/repositories/services";
 
-beforeEach(angular.mock.module('graphdb.framework.repositories.services', function($provider) {
-    $provider.constant("productInfo", {
+beforeEach(angular.mock.module('graphdb.framework.repositories.services', function ($provide) {
+    $provide.constant("productInfo", {
         "productType": "standard", "productVersion": "7.0", "sesame": "2.9.0", "connectors": "5.0.0"
     });
 }));
@@ -10,7 +10,7 @@ describe('==> Repository module services tests', function () {
 
     describe('=> $repositories tests', function () {
 
-        var $repositories, $httpBackend, $http, $jwtAuth;
+        var $repositories, $httpBackend, $http, $jwtAuth, httpGetActiveLocation, httpGetRepositories, httpSecurity, httpDefaultUser;
 
         beforeEach(angular.mock.inject(function (_$repositories_, _$httpBackend_, _$http_, _$jwtAuth_) {
             // The injector unwraps the underscores (_) from around the parameter names when matching
@@ -23,7 +23,7 @@ describe('==> Repository module services tests', function () {
                 return true;
             };
 
-            let httpGetActiveLocation = $httpBackend.when('GET', 'rest/locations/active').respond(200, {
+            httpGetActiveLocation = $httpBackend.when('GET', 'rest/locations/active').respond(200, {
                 "uri": "C:\\temp\\ee\\test",
                 "username": "",
                 "password": "",
@@ -31,7 +31,7 @@ describe('==> Repository module services tests', function () {
                 "local": true,
                 "errorMsg": null
             });
-            let httpGetRepositories = $httpBackend.when('GET', 'rest/repositories').respond(200,
+            httpGetRepositories = $httpBackend.when('GET', 'rest/repositories').respond(200,
                 [{
                     "id": "SYSTEM",
                     "title": "System configuration repository",
@@ -53,12 +53,12 @@ describe('==> Repository module services tests', function () {
                     "local": true
                 }]
             );
-            let httpSecurity = $httpBackend.when('GET', 'rest/security/all').respond(200, {
+            httpSecurity = $httpBackend.when('GET', 'rest/security/all').respond(200, {
                 enabled: false,
                 overrideAuth: {enabled: false},
                 freeAccess: {enabled: false}
             });
-            let httpDefaultUser = $httpBackend.when('GET', 'rest/security/user/admin').respond(200, {
+            httpDefaultUser = $httpBackend.when('GET', 'rest/security/user/admin').respond(200, {
                 username: 'admin',
                 appSettings: {'DEFAULT_INFERENCE': true, 'DEFAULT_SAMEAS': true, 'EXECUTE_COUNT': true},
                 authorities: ['ROLE_ADMIN']

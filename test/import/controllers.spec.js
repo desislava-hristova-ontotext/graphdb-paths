@@ -1,7 +1,7 @@
 import "angular/import/controllers";
 
-beforeEach(angular.mock.module('graphdb.framework.impex.import.controllers', function ($provider) {
-    $provider.constant("productInfo", {
+beforeEach(angular.mock.module('graphdb.framework.impex.import.controllers', function ($provide) {
+    $provide.constant("productInfo", {
         "productType": "standard", "productVersion": "7.0", "sesame": "2.9.0", "connectors": "5.0.0"
     });
 }));

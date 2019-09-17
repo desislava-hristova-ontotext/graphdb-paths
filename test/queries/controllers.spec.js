@@ -1,8 +1,8 @@
 import "angular/core/services";
 import "angular/queries/controllers";
 
-beforeEach(angular.mock.module('graphdb.framework.jmx.queries.controllers', function ($provider) {
-    $provider.constant("productInfo", {
+beforeEach(angular.mock.module('graphdb.framework.jmx.queries.controllers', function ($provide) {
+    $provide.constant("productInfo", {
         "productType": "standard", "productVersion": "7.0", "sesame": "2.9.0", "connectors": "5.0.0"
     });
 }));
