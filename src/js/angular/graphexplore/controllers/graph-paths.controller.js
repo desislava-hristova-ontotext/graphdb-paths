@@ -21,19 +21,48 @@ define([
         GraphPathVisualizationsCtrl.$inject = ["$scope", "$rootScope", "$repositories", "toastr", "$timeout", "$http", "ClassInstanceDetailsService", "AutocompleteService", "$q", "$location", "UiScrollService", "ModalService", "$modal", "$window", "localStorageService", "SavedGraphsService", "GraphConfigService"];
         function GraphPathVisualizationsCtrl($scope, $rootScope, $repositories, toastr, $timeout, $http, ClassInstanceDetailsService, AutocompleteService, $q, $location, UiScrollService, ModalService, $modal, $window, localStorageService, SavedGraphsService, GraphConfigService) {
 
+            var defaultGraphConfig = {
+                id: 'default',
+                name: 'Easy graph',
+                startMode: 'search'
+            };
 
+            var findAllPaths = function(startNode, endNode, visited, path) {
+                console.log(startNode + " " + endNode);
+                if (startNode === endNode) {
+                    console.log('Found path ' + path);
+                    // Maybe later distinct each path
+                    initGraphFromResponse({data: path});
+                    //drawGraph(path);
+                    return;
+                }
+                $http({
+                    url: 'rest/explore-graph/links',
+                    method: 'GET',
+                    params: {
+                        iri: startNode,
+                        config: defaultGraphConfig.id,
+                    }
+                }).then(function (response) {
+                    console.log(response);
+                    _.each(response.data, function(link) {
+                        var o = link.target;
+                        if (!visited.includes(o)) {
+                            findAllPaths(o, endNode, visited.concat(o), path.concat(link));
+                        }
+                    });
+                }, function (response) {
+                    var msg = getError(response.data);
+                    toastr.error(msg, 'Error looking for path node');
+                });
+                return;
+            }
 
-
-
-
-
-
-
-
-
-
-
-
+            $scope.findPath = function(startNode, endNode) {
+                $scope.configLoaded = defaultGraphConfig;
+                findAllPaths(startNode, endNode, [startNode], []);
+                //initGraphFromResponse(allPaths);
+            }
 
 
             // Old code
