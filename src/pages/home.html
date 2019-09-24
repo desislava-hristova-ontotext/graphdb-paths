@@ -27,25 +27,25 @@
             </div>
         </div>
     </div>
-    <div class="row mb-3" ng-if="getActiveRepository() && !isLoadingLocation() && hasActiveLocation()" ng-cloak>
-        <div class="col-lg-12">
-            <h3><span  tooltip="View RDF data as a text table or as a visual graph" tooltip-placement="right">View resource</span></h3>
-            <div class="card">
-                <div class="card-block">
-                    <search-resource-input
-                            namespacespromise="getNamespacesPromise"
-                            autocompletepromisestatus="getAutocompletePromise"
-                            empty="empty">
-                    </search-resource-input>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--    <div class="row mb-3" ng-if="getActiveRepository() && !isLoadingLocation() && hasActiveLocation()" ng-cloak>-->
+<!--        <div class="col-lg-12">-->
+<!--            <h3><span  tooltip="View RDF data as a text table or as a visual graph" tooltip-placement="right">View resource</span></h3>-->
+<!--            <div class="card">-->
+<!--                <div class="card-block">-->
+<!--                    <search-resource-input-->
+<!--                            namespacespromise="getNamespacesPromise"-->
+<!--                            autocompletepromisestatus="getAutocompletePromise"-->
+<!--                            empty="empty">-->
+<!--                    </search-resource-input>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <div core-errors></div>
 
     <div class="mb-2 row" ng-show="!isLoadingLocation() && hasActiveLocation() && getActiveRepository()">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <h3><span tooltip="View information about the current active repository" tooltip-placement="top">Active repository</span></h3>
             <div class="card active-repo-card"
                  ng-show="canReadRepo(getActiveLocation(), getActiveRepository())">
@@ -124,22 +124,22 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
-            <h3><span tooltip="Execute a saved SPARQL query directly" tooltip-placement="top">Saved SPARQL queries</span></h3>
-            <div class="card"
-                 ng-cloak>
-                <div>
-                    <ul class="list-group limit-height clearfix {{sampleQueries.length <= 4 ? 'one-column' : 'two-columns'}} saved-queries" ng-init="getSavedQueries()">
-                        <li ng-repeat="query in sampleQueries" ng-hide="isIgnoreSharedQueries() && query.owner != null" class="list-group-item list-group-item-action">
-                            <span class="help-label execute-saved-query" ng-click="goToSparqlEditor(query)">Execute <span class="icon-caret-right"></span></span>
-                            <samp class="h5">{{query.name}}</samp>
-                            <samp class="text-muted small">{{query.body}}</samp>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+<!--        <div class="col-lg-6">-->
+<!--            <h3><span tooltip="Execute a saved SPARQL query directly" tooltip-placement="top">Saved SPARQL queries</span></h3>-->
+<!--            <div class="card"-->
+<!--                 ng-cloak>-->
+<!--                <div>-->
+<!--                    <ul class="list-group limit-height clearfix {{sampleQueries.length <= 4 ? 'one-column' : 'two-columns'}} saved-queries" ng-init="getSavedQueries()">-->
+<!--                        <li ng-repeat="query in sampleQueries" ng-hide="isIgnoreSharedQueries() && query.owner != null" class="list-group-item list-group-item-action">-->
+<!--                            <span class="help-label execute-saved-query" ng-click="goToSparqlEditor(query)">Execute <span class="icon-caret-right"></span></span>-->
+<!--                            <samp class="h5">{{query.name}}</samp>-->
+<!--                            <samp class="text-muted small">{{query.body}}</samp>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
 
-        </div>
+<!--        </div>-->
     </div>
 
 

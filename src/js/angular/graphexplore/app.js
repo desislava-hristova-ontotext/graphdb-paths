@@ -101,32 +101,32 @@ define([
                 role : 'IS_AUTHENTICATED_FULLY',
                 icon: "icon-data"
             });
-
-            $menuItemsProvider.addItem({
-                label: 'Class relationships',
-                href: 'relationships',
-                order: 2,
-                parent: 'Explore'
-            });
-
-            $menuItemsProvider.addItem({
-                label: 'Class hierarchy',
-                href: 'hierarchy',
-                order: 1,
-                parent: 'Explore'
-            });
-
-
-            $menuItemsProvider.addItem({
-                label: 'Visual graph',
-                href: 'graphs-visualizations',
-                order: 5,
-                parent: 'Explore',
-                children: [{
-                    href: 'graphs-visualizations/config/save',
-                    children: []
-                }]
-            });
+            //
+            // $menuItemsProvider.addItem({
+            //     label: 'Class relationships',
+            //     href: 'relationships',
+            //     order: 2,
+            //     parent: 'Explore'
+            // });
+            //
+            // $menuItemsProvider.addItem({
+            //     label: 'Class hierarchy',
+            //     href: 'hierarchy',
+            //     order: 1,
+            //     parent: 'Explore'
+            // });
+            //
+            //
+            // $menuItemsProvider.addItem({
+            //     label: 'Visual graph',
+            //     href: 'graphs-visualizations',
+            //     order: 5,
+            //     parent: 'Explore',
+            //     children: [{
+            //         href: 'graphs-visualizations/config/save',
+            //         children: []
+            //     }]
+            // });
 
             $menuItemsProvider.addItem({
                 label: 'Paths',
