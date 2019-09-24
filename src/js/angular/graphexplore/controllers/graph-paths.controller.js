@@ -1,32 +1,24 @@
 define([
         'angular/core/services',
-        'lib/d3-tip/d3-tip-patch',
         'lib/common/d3-utils'
     ],
-    function (require, d3tip, D3) {
+    function (require, D3) {
 
         angular
             .module('graphdb.framework.graphexplore.controllers.graphviz.graphpath', [
-                'ui.scroll.jqlite',
-                'ui.scroll',
                 'toastr',
                 'ui.bootstrap',
-                'ngTagsInput'
             ])
-            .controller('GraphPathVisualizationsCtrl', GraphPathVisualizationsCtrl)
-            .config(['$tooltipProvider', function ($tooltipProvider) {
-                $tooltipProvider.options({appendToBody: true});
-            }]);
+            .controller('GraphPathVisualizationsCtrl', GraphPathVisualizationsCtrl);
 
-        GraphPathVisualizationsCtrl.$inject = ["$scope", "$rootScope", "$repositories", "toastr", "$timeout", "$http", "ClassInstanceDetailsService", "AutocompleteService", "$q", "$location", "UiScrollService", "ModalService", "$modal", "$window", "localStorageService", "SavedGraphsService", "GraphConfigService"];
+        GraphPathVisualizationsCtrl.$inject = ["$scope", "$rootScope", "$repositories", "toastr", "$timeout", "$http", "ClassInstanceDetailsService", "AutocompleteService", "$q", "$location"];
 
-        function GraphPathVisualizationsCtrl($scope, $rootScope, $repositories, toastr, $timeout, $http, ClassInstanceDetailsService, AutocompleteService, $q, $location, UiScrollService, ModalService, $modal, $window, localStorageService, SavedGraphsService, GraphConfigService) {
+        function GraphPathVisualizationsCtrl($scope, $rootScope, $repositories, toastr, $timeout, $http, ClassInstanceDetailsService, AutocompleteService, $q, $location) {
 
             var width = 1000,
                 height = 1000;
 
             var nodeLabelRectScaleX = 1.75;
-            var nodeLabelMinFontSize = 16; // pixels
 
             var force = d3.layout.force()
                 .gravity(0.07)
@@ -267,7 +259,7 @@ define([
 
                 function updateNodeLabels(nodeLabels) {
                     nodeLabels.each(function (d) {
-                        d.fontSize = D3.Text.calcFontSizeRaw(d.labels[0].label, d.size, nodeLabelMinFontSize, true);
+                        d.fontSize = D3.Text.calcFontSizeRaw(d.labels[0].label, d.size, 16, true);
                         // TODO: get language and set it on the label html tag
                     })
                         .attr("height", function (d) {
