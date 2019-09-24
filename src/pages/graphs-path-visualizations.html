@@ -21,8 +21,9 @@
         <p>{{repositoryError}}</p>
     </div>
 
-    <div class="search-bar" ng-show="getActiveRepository() && !isLoadingLocation() && hasActiveLocation() && 'SYSTEM' !== getActiveRepository()">
-        <div ng-show="!configLoaded">
+    <div class="search-bar"
+         ng-show="getActiveRepository() && !isLoadingLocation() && hasActiveLocation() && 'SYSTEM' !== getActiveRepository()">
+        <div>
             <div ng-if="getActiveRepository() && !isLoadingLocation() && hasActiveLocation()"
                  ng-cloak>
 
@@ -31,13 +32,12 @@
                         <h3>From</h3>
                         <p>Search for a start node</p>
                         <search-resource-input class="search-rdf-resources"
-                                namespacespromise="getNamespacesPromise"
-                                autocompletepromisestatus="getAutocompletePromise"
-                                text-button=""
-                                visual-button="Show"
-                                visual-callback="startNode = uri"
-                                empty="empty"
-                                preserve-input="true">
+                                               namespacespromise="getNamespacesPromise"
+                                               autocompletepromisestatus="getAutocompletePromise"
+                                               text-button=""
+                                               visual-button="Show"
+                                               visual-callback="startNode = uri"
+                                               preserve-input="true">
                         </search-resource-input>
                     </div>
                 </div>
@@ -51,15 +51,11 @@
                                                text-button=""
                                                visual-button="Show"
                                                visual-callback="findPath(startNode, uri)"
-                                               empty="empty"
                                                preserve-input="true">
                         </search-resource-input>
                     </div>
                 </div>
-                <span ng-show="startNode && endNode">Looking for path between {{startNode}} and {{endNode}}</span>
-        </div>
-
-
+            </div>
         </div>
 
     </div>
@@ -67,9 +63,5 @@
 
 
 <div class="graph-visualization"></div>
-<div onto-loader-new
-     ng-show="loading"
-     size="100"
-     style="height: 75vh; display: flex;">
 </div>
 

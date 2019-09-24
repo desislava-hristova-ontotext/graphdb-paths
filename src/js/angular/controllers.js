@@ -669,13 +669,6 @@ define(['angular/core/services'], function () {
                 });
         };
 
-        var timer = $interval(function () {
-            if (!$scope.getDegradedReason()) {
-                $scope.getQueries();
-                $scope.getNumberOfActiveImports();
-            }
-        }, 2000);
-
         $scope.$on("$destroy", function (event) {
             $interval.cancel(timer);
         });
