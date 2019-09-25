@@ -51,13 +51,13 @@ define([
             $scope.$on('repositoryIsSet', function(event, args) {
                 initForRepository();
             });
+            initForRepository();
 
             var findPath = function (startNode, endNode, visited, path) {
                 if (startNode === endNode) {
                     console.log('Found path ' + path);
                     // Maybe later distinct each path
                     renderGraph(path);
-                    //drawGraph(path);
                     return;
                 }
                 $http({
