@@ -18,6 +18,8 @@ define([
             var width = 1000,
                 height = 1000;
 
+            var maxPathLength = 3;
+
             var nodeLabelRectScaleX = 1.75;
 
             var force = d3.layout.force()
@@ -52,12 +54,18 @@ define([
                 initForRepository();
             });
             initForRepository();
+            var allPaths = [];
+
 
             var findPath = function (startNode, endNode, visited, path) {
                 if (startNode === endNode) {
                     console.log('Found path ' + path);
                     // Maybe later distinct each path
                     renderGraph(path);
+                    return;
+                }
+                // Find only paths with maxLenght
+                if (path.length === maxPathLength) {
                     return;
                 }
                 $http({
@@ -68,7 +76,8 @@ define([
                         config: 'default',
                     }
                 }).then(function (response) {
-                    _.each(response.data, function (link) {
+                    var flights = _.filter(response.data, function(r) {return r.predicates[0] == "hasFlightTo"});
+                    _.each(flights, function (link) {
                         var o = link.target;
                         if (!visited.includes(o)) {
                             findPath(o, endNode, visited.concat(o), path.concat(link));
@@ -78,7 +87,6 @@ define([
                     var msg = getError(response.data);
                     toastr.error(msg, 'Error looking for path node');
                 });
-                return;
             }
 
             $scope.findPath = function (startNode, endNode) {
