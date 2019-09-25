@@ -54,35 +54,33 @@ define([
                 initForRepository();
             });
             initForRepository();
-            var allPaths = [];
-
 
             var findPath = function (startNode, endNode, visited, path) {
                 if (startNode === endNode) {
-                    console.log('Found path ' + path);
-                    // Maybe later distinct each path
-                    renderGraph(path);
-                    return;
+                    return $q.when(path)
                 }
-                // Find only paths with maxLenght
+                // Find only paths with maxLength
                 if (path.length === maxPathLength) {
-                    return;
+                    return $q.when([])
                 }
-                $http({
+                return $http({
                     url: 'rest/explore-graph/links',
                     method: 'GET',
                     params: {
                         iri: startNode,
                         config: 'default',
+                        linksLimit: 50
                     }
                 }).then(function (response) {
                     var flights = _.filter(response.data, function(r) {return r.predicates[0] == "hasFlightTo"});
-                    _.each(flights, function (link) {
+                    var promises = _.map(flights, function (link) {
                         var o = link.target;
                         if (!visited.includes(o)) {
-                            findPath(o, endNode, visited.concat(o), path.concat(link));
+                            return findPath(o, endNode, visited.concat(o), path.concat(link));
                         }
+                        return $q.when([]);
                     });
+                    return $q.all(promises);
                 }, function (response) {
                     var msg = getError(response.data);
                     toastr.error(msg, 'Error looking for path node');
@@ -90,7 +88,9 @@ define([
             }
 
             $scope.findPath = function (startNode, endNode) {
-                findPath(startNode, endNode, [startNode], []);
+                findPath(startNode, endNode, [startNode], []).then(function (linksFound) {
+                    renderGraph(_.flattenDeep(linksFound));
+                });
             }
 
             function renderGraph(linksFound) {
